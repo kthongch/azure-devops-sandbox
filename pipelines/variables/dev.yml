@@ -1,0 +1,6 @@
+variables:
+  ZipPath: 'D:\packages\myapp-latest.zip'
+  DeployPath: 'C:\inetpub\wwwroot\MySite'
+  AppPool: 'DefaultAppPool'
+  WebUrl: 'http://localhost/'
+  ExpectText: ''

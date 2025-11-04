@@ -1,0 +1,26 @@
+trigger: none
+variables:
+- template: variables/dev.yml
+
+stages:
+- stage: Deploy
+  displayName: Deploy ZIP on self-hosted agent
+  jobs:
+  - deployment: RunSteps
+    displayName: Run scripted steps
+    environment: dev-iis
+    pool:
+      name: LocalPool
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - pwsh: |
+              ./deploy/run-steps.ps1 `
+                -ZipPath "$(ZipPath)" `
+                -DeployPath "$(DeployPath)" `
+                -AppPool "$(AppPool)"
+            displayName: 'Run deploy steps'
+          - pwsh: |
+              ./deploy/verify.ps1 -Url "$(WebUrl)" -Expect "$(ExpectText)" -Retries 5 -DelaySec 5
+            displayName: 'Verify by HTTP'

@@ -1,0 +1,10 @@
+.vscode/
+.idea/
+*.user
+*.suo
+out/
+dist/
+tmp/
+*.log
+*.env
+*.secret.json
